@@ -1,29 +1,44 @@
-// creater a bookshelf functional component which is used to retrieve data from smart contract and display in a table format with options to borrow the book, returnm it and also check copies avalibale
-import React from 'react';
+import { useEffect } from 'react';
+import { useCall, useContractFunction } from '@usedapp/core';
+import { utils } from 'ethers';
+import { Button, Card, Typography } from '@mui/material';
 
-const BookShelf = () => {
-    // state variable to store the books data
-    const [books, setBooks] = React.useState([]);
-    
-    // retrieve the books data from the smart contract
-    React.useEffect(() => {
-        const getBooks = async () => {
-            // get the smart contract instance
-            const { contract } = window;
-            // call the getBooks function from the smart contract
-            const books = await contract.getBooks();
-            // set the books data to the state variable
-            setBooks(books);
-        };
-        // call the getBooks function
-        getBooks();
-    }, []);
+const styles = {
+    box: { minHeight: '100vh', backgroundColor: '#1b3864' },
+    vh100: { minHeight: '100vh' },
+    card: { borderRadius: 4, padding: 4, maxWidth: '550px', width: '100%' },
+    alignCenter: { textAlign: 'center' },
+};
 
-    return (
-        <div>
-            <h1>BookShelf</h1>
-        </div>
+function BookShelf({ contract }) {
+    const books = useCall({ contract, method: 'getAvailableBooks', args: [] });
+    const { state, send } = useContractFunction(contract, 'borrowBook');
+
+    useEffect(() => {
+        if (books && books.value) {
+            console.log(books.value);
+        }
+    }, [books]);
+
+    console.log(books);
+
+    return(
+        <>
+            {books && books.value && (
+                <Card sx={styles.card}>
+                    <h1 style={styles.alignCenter}>Available Books</h1>
+                    {books.value[0].map((book, index) => (
+                        <div>
+                            <Typography key={index}>{book.id.toNumber()} {book.title} </Typography>
+                            {/* <Typography key={index}>{book.copies.toNumber()} copies</Typography> */}
+                            {/* <Button onClick={() => send(utils.formatBytes32String(book.title), book.copies.toNumber())}>Borrow</Button> */}
+                        </div>
+                    ))}
+                </Card>
+            )}
+        </>
     );
+
 }
 
 export default BookShelf;
