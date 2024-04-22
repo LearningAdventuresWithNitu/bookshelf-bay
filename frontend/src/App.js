@@ -1,11 +1,13 @@
 import './App.css';
 import Header from './components/Header';
+import { useState } from 'react';
 import { Box } from '@mui/system';
-import { Button, Grid } from '@mui/material';
-import { useEthers } from '@usedapp/core';
+import { Button, Grid, Card, TextField } from '@mui/material';
+import { useEthers, useContractFunction } from '@usedapp/core';
 import { Contract } from 'ethers';
 import Library from './artifacts/contracts/Library.sol/Library.json';
 import MetaMaskLogo from './assets/SVG_MetaMask_Horizontal_Color.svg';
+import BookShelf from './components/BookShelf';
 
 const styles = {
     box: { minHeight: '100vh', backgroundColor: '#1b3864' },
@@ -17,13 +19,24 @@ const styles = {
 const contractAddress = '0x97Ae7ef3b6eAF4dB9019025bc9C6e14F03585ea5';
 
 function App() {
-    const contract = new Contract(contractAddress, Library.abi);
     const { activateBrowserWallet, deactivate, account } = useEthers();
+    const contract = new Contract(contractAddress, Library.abi);
+
+    const { state, send } = useContractFunction(contract, 'addBook');
 
     // to handle the wallet toggle button click event to connect and disconnect the metamask wallet from the dapp
     const handleWalletConnection = () => {
         if (account) deactivate();
         else activateBrowserWallet();
+    };
+
+    const [title, setTitle] = useState('');
+    const [copies, setCopies] = useState(0);
+
+    const handleAddBook = async () => {
+        send(title, copies);
+        setTitle('');
+        setCopies(0);
     };
 
     return (
@@ -43,6 +56,35 @@ function App() {
                             : 'Connect'}
                         </Button>
                     </Box>
+                    <Card sx={styles.card}>
+                        <h1 style={styles.alignCenter}>Add Book</h1>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="Title"
+                                    variant="outlined"
+                                    fullWidth
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="Number of Copies"
+                                    variant="outlined"
+                                    type="number"
+                                    fullWidth
+                                    value={copies}
+                                    onChange={(e) => setCopies(parseInt(e.target.value))}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button variant="contained" onClick={handleAddBook}>
+                                    Add Book
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Card>
                 </Grid>
             </Box>
             <button className="btn btn-outline-dark m-1">Connect your MetaMask Wallet</button>
