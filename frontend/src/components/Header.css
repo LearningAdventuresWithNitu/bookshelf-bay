@@ -1,0 +1,17 @@
+.header-styling {
+    background-color: #aa7fe2; 
+    color: white;
+    text-align: center; 
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .header-styling h1 {
+    margin: 0; 
+    font-size: 36px;
+  }
+  
+  .header-styling p {
+    margin: 5px 0;
+    font-style: italic;
+  }
