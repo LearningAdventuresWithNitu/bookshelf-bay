@@ -5,6 +5,7 @@ import { Button, Grid } from '@mui/material';
 import { useEthers } from '@usedapp/core';
 import { Contract } from 'ethers';
 import Library from './artifacts/contracts/Library.sol/Library.json';
+import MetaMaskLogo from './assets/SVG_MetaMask_Horizontal_Color.svg';
 
 const styles = {
     box: { minHeight: '100vh', backgroundColor: '#1b3864' },
@@ -32,15 +33,14 @@ function App() {
                 <Grid
                     container
                     direction="column"
-                    justifyContent="center"
                     alignItems="center"
                     sx={styles.vh100}
                 >
-                    <Box position='absolute' top={8} right={16}>
-                        <Button variant='contained' onClick={handleWalletConnection}>
+                    <Box position='relative' sx={styles.card}>
+                        <Button variant='contained' sx={{ width: '100%' }} endIcon={<img src={MetaMaskLogo} alt="Image" style={{ width: '200px', height: '60px' }} />} onClick={handleWalletConnection}>
                             {account
                             ? `Disconnect ${account.substring(0, 5)}...`
-                            : 'Connect Wallet'}
+                            : 'Connect'}
                         </Button>
                     </Box>
                 </Grid>
