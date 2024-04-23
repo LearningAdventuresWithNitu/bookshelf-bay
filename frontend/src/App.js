@@ -30,7 +30,7 @@ function App() {
         else activateBrowserWallet();
     };
     
-    const { state, send } = useContractFunction(contract, 'borrowBook');
+    const { state, send } = useContractFunction(contract, 'addBook');
 
     const [title, setTitle] = useState('');
     const [copies, setCopies] = useState(0);
