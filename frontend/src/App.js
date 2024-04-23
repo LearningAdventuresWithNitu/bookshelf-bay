@@ -16,7 +16,7 @@ const styles = {
     alignCenter: { textAlign: 'center' },
 };
 
-const contractAddress = '0x97Ae7ef3b6eAF4dB9019025bc9C6e14F03585ea5';
+const contractAddress = '0x2f109CCdC1d4Cf3A0BFc424C1db06C2A27F9aa8e';
 const contractABI = Library.abi;
 
 function App() {
