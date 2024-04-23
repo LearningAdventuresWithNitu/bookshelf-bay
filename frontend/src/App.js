@@ -1,10 +1,10 @@
 import './App.css';
 import Header from './components/Header';
-import { useState, useEffect } from 'react';
-import { Box, margin } from '@mui/system';
-import { Button, Grid, Card, TextField, Typography } from '@mui/material';
-import { useEthers, useContractFunction, useCall } from '@usedapp/core';
-import { Contract, utils } from 'ethers';
+import { useState } from 'react';
+import { Box } from '@mui/system';
+import { Button, Grid, Card, TextField } from '@mui/material';
+import { useEthers, useContractFunction } from '@usedapp/core';
+import { Contract } from 'ethers';
 import Library from './artifacts/contracts/Library.sol/Library.json';
 import MetaMaskLogo from './assets/SVG_MetaMask_Horizontal_Color.svg';
 import BookShelf from './components/BookShelf';
@@ -12,7 +12,7 @@ import BookShelf from './components/BookShelf';
 const styles = {
     box: { minHeight: '100vh', backgroundColor: '#1b3864' },
     vh100: { minHeight: '100vh' },
-    card: { borderRadius: 4, padding: 4, maxWidth: '700px', width: '100%', margin: 'auto'},
+    card: { borderRadius: 4, padding: 4, maxWidth: '700px', width: '100%'},
     alignCenter: { textAlign: 'center' },
 };
 
