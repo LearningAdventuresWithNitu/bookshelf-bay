@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import { useState, useEffect } from 'react';
-import { Box } from '@mui/system';
+import { Box, margin } from '@mui/system';
 import { Button, Grid, Card, TextField, Typography } from '@mui/material';
 import { useEthers, useContractFunction, useCall } from '@usedapp/core';
 import { Contract, utils } from 'ethers';
@@ -12,7 +12,7 @@ import BookShelf from './components/BookShelf';
 const styles = {
     box: { minHeight: '100vh', backgroundColor: '#1b3864' },
     vh100: { minHeight: '100vh' },
-    card: { borderRadius: 4, padding: 4, maxWidth: '550px', width: '100%' },
+    card: { borderRadius: 4, padding: 4, maxWidth: '700px', width: '100%', margin: 'auto'},
     alignCenter: { textAlign: 'center' },
 };
 
@@ -41,17 +41,6 @@ function App() {
         setCopies(0);
     };
 
-    // const books = useCall({ contract, method: 'getAvailableBooks', args: [] });
-
-    // useEffect(() => {
-    //     if (books && books.value) {
-    //         console.log(books.value);
-    //     }
-    // }, [books]);
-
-    // console.log(books);
-
-
     return (
         <div className="App">
             <Header />
@@ -69,7 +58,8 @@ function App() {
                             : 'Connect'}
                         </Button>
                     </Box>
-                    <Card sx={styles.card}>
+                    <BookShelf contract={contract} />
+                    <Card sx={{ ...styles.card, marginBottom: '16px' }}>
                         <h1 style={styles.alignCenter}>Add Book</h1>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -98,10 +88,8 @@ function App() {
                             </Grid>
                         </Grid>
                     </Card>
-                    <BookShelf contract={contract} />
                 </Grid>
             </Box>
-            <button className="btn btn-outline-dark m-1">Connect your MetaMask Wallet</button>
         </div>
     );
 }
