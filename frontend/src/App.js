@@ -35,7 +35,8 @@ function App() {
     const [title, setTitle] = useState('');
     const [copies, setCopies] = useState(0);
 
-    const handleAddBook = async () => {
+    const handleAddBook = async (e) => {
+        e.preventDefault();
         send(title, copies);
         setTitle('');
         setCopies(0);
