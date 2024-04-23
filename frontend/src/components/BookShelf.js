@@ -50,16 +50,18 @@ function BookShelf({ contract }) {
             {books && books.value && (
                 <Card sx={{ ...styles.card, marginBottom: '8px' }}>
                     <h1 style={styles.alignCenter}>Available Books</h1>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
                     {books.value[0].map((book, index) => (
-                    <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                        <Typography>{book.id.toNumber()} </Typography>
-                        <div style={{ flex: 1, marginLeft: '16px' }}>
+                        <Card key={index} sx={{ width: '200px', padding: '16px', textAlign: 'center' }}>
+                            <Typography>Id: {book.id.toNumber()} </Typography>
                             <BookDetails contract={contract} bookId={book.id.toNumber()} />
-                        </div>
-                        <Button onClick={() => handleBorrowBook(book.id.toNumber())}>Borrow</Button>
-                        <Button onClick={() => handleReturnBook(book.id.toNumber())}>Return</Button>
-                    </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '8px' }}>
+                                <Button onClick={() => handleBorrowBook(book.id.toNumber())}>Borrow</Button>
+                                <Button onClick={() => handleReturnBook(book.id.toNumber())}>Return</Button>
+                            </div>
+                        </Card>
                     ))}
+                    </div>
                 </Card>
             )}
         </>
