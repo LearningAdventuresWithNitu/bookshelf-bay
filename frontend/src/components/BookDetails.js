@@ -8,14 +8,15 @@ function BookDetails({ contract, bookId }) {
         return null;
     }
 
-    const [title, copies] = bookDetails.value;
+    const [title, copies, borrowers] = bookDetails.value;
 
     console.log(bookDetails.value);
 
     return (
         <>
             <Typography>Title: {title}</Typography>
-            <Typography>Copies: {copies.toNumber()}</Typography>
+            <Typography>Total Copies: {copies.toNumber()}</Typography>
+            <Typography>Available Copies: {copies.toNumber() - borrowers.length}</Typography>
         </>
     );
 }
